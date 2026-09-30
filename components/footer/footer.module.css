@@ -1,0 +1,6 @@
+.footer {
+  width: 100%;
+  border-top: 1rem darkolivegreen solid;
+  display: flex;
+  justify-content: center;
+}
