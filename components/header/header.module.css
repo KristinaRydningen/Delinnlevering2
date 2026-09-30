@@ -1,0 +1,16 @@
+.headerNav {
+  width: 100%;
+  border-bottom: 1rem darkolivegreen solid;
+}
+
+.headerNav nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  align-items: center;
+}
+
+.headerNav a {
+  text-decoration: none;
+  color: black;
+}
