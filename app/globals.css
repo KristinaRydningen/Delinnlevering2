@@ -28,3 +28,11 @@ body {
     flex: 1;
   }
 }
+
+.button {
+  background-color: white;
+  border: 0.1rem solid darkolivegreen;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-weight: bold;
+}

@@ -1,0 +1,17 @@
+.mushroomCard {
+  background-color: #cfffb3;
+  width: 15rem;
+  border: 0.1rem solid #cfffb3;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.italicTxt {
+  font-style: italic;
+  font-weight: lighter;
+}
+
+.sapmiFlag {
+  width: 2rem;
+}
