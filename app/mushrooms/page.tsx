@@ -20,40 +20,46 @@ export default async function Mushrooms() {
     notFound();
   }
 
-  if (response.status === 404) {
-    throw new Error("Noe gikk galt ved innhenting av data...");
-  }
-
   const data = await response.json();
 
-  console.log(data.results);
+  const mushroomsWithImages = await Promise.all(
+    data.results.map(async (item: Mushroom) => {
+      const norwegianName = item.vernacularNames.find(
+        (name) => name.language === "nob",
+      );
+
+      const sapmiName = item.vernacularNames.find(
+        (name) => name.language === "sme",
+      );
+
+      const imgResponse = await fetch(
+        `https://api.gbif.org/v1/occurrence/search?scientificName=${item.canonicalName}&mediaType=StillImage&limit=1`,
+      );
+
+      const imgData = await imgResponse.json();
+
+      const img = imgData.results?.[0]?.media?.[0]?.identifier;
+
+      return (
+        <MushroomCard
+          key={item.key}
+          id={item.key}
+          img={img ? img : ""}
+          commonName={
+            norwegianName ? norwegianName.vernacularName : item.canonicalName
+          }
+          latinName={item.canonicalName}
+          sapmiName={sapmiName ? sapmiName.vernacularName : ""}
+        />
+      );
+    }),
+  );
 
   return (
     <main>
       <h1>Sopper</h1>
-      <div className={styles.mushroomsDisplay}>
-        {data.results.map((item: Mushroom) => {
-          const norwegianName = item.vernacularNames.find(
-            (name) => name.language === "nob",
-          );
-          const sapmiName = item.vernacularNames.find(
-            (name) => name.language === "sme",
-          );
-          return (
-            <MushroomCard
-              key={item.key}
-              id={item.key}
-              commonName={
-                norwegianName
-                  ? norwegianName.vernacularName
-                  : item.canonicalName
-              }
-              latinName={item.canonicalName}
-              sapmiName={sapmiName ? sapmiName.vernacularName : ""}
-            />
-          );
-        })}
-      </div>
+
+      <div className={styles.mushroomsDisplay}>{mushroomsWithImages}</div>
     </main>
   );
 }
