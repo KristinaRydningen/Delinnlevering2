@@ -15,30 +15,48 @@ export default async function SearchMushroomsPage({ searchParams }: Props) {
     `https://api.gbif.org/v1/species/search?q=${encodeURIComponent(q)}`,
   );
 
-  console.log(response);
-
   if (!response.ok) {
     throw new Error("Noe gikk galt");
   }
-
   const data = await response.json();
-
   const searchedMushrooms = data.results;
 
-  console.log(searchedMushrooms);
+  if (searchedMushrooms.length === 0) {
+    return <h1>Søket etter "{q}" ga dessverre ingen resultater</h1>;
+  }
 
   return (
     <>
       <h1>Søk etter {q}</h1>
-      {searchedMushrooms.map((mushroom) => {
+      {searchedMushrooms.map(async (mushroom) => {
+        const imgResponse = await fetch(
+          `https://api.gbif.org/v1/occurrence/search?scientificName=${mushroom.canonicalName}&mediaType=StillImage&limit=1`,
+        );
+        const imgData = await imgResponse.json();
+        const img = imgData.results?.[0]?.media?.[0]?.identifier;
+
+        const nameResponse = await fetch(
+          `https://api.gbif.org/v1/species/${mushroom.key}/vernacularNames`,
+        );
+        const nameData = await nameResponse.json();
+
+        const norwegianName = nameData.results.find(
+          (name) => name.language === "nob",
+        );
+
+        const sapmiName = nameData.results.find(
+          (name) => name.language === "sme",
+        );
+
+        console.log(norwegianName);
         return (
           <MushroomCard
             key={mushroom.key}
             id={mushroom.key}
-            commonName={mushroom.vernacularNames.nno}
+            commonName={norwegianName ? norwegianName.vernacularName : ""}
             latinName={mushroom.scientificName}
-            sapmiName={mushroom.vernacularNames.sme}
-            img=""
+            sapmiName={sapmiName ? sapmiName.vernacularName : ""}
+            img={img}
           />
         );
       })}

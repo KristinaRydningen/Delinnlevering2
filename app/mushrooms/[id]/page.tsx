@@ -52,7 +52,11 @@ export default async function MushroomSpecific({ params }: Props) {
       commonName={norwegianName ? norwegianName.vernacularName : ""}
       img={img}
       sapmiName={sapmiName ? sapmiName.vernacularName : ""}
-      description={description}
+      description={
+        description
+          ? description
+          : `Det finnes dessverre ingen beskrivelse for ${norwegianName.vernacularName}`
+      }
     />
   );
 }

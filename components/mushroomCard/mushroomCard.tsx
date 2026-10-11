@@ -18,10 +18,10 @@ export default function MushroomCard(props: Props) {
       <h3 className={styles.italicTxt}>{props.latinName}</h3>
       <h3>
         {props.sapmiName ? (
-          <>
+          <div className={styles.sapmiDisplay}>
             {props.sapmiName}
             <img className={styles.sapmiFlag} src="sapmi.png" alt="" />
-          </>
+          </div>
         ) : (
           ""
         )}
