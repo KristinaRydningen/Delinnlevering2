@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import MushroomCard from "@/components/mushroomCard/mushroomCard";
 import styles from "./mushroomsPage.module.css";
+import { GBIF_BASE_API } from "@/constants/constants-api";
 
 type Mushroom = {
   key: number;
@@ -13,7 +14,7 @@ type Mushroom = {
 
 export default async function Mushrooms() {
   const response = await fetch(
-    "https://api.gbif.org/v1/species/search?higherTaxonKey=168023315&rank=SPECIES&datasetKey=a6c6cead-b5ce-4a4e-8cf5-1542ba708dec&status=ACCEPTED&limit=50",
+    `${GBIF_BASE_API}/species/search?higherTaxonKey=168023315&rank=SPECIES&datasetKey=a6c6cead-b5ce-4a4e-8cf5-1542ba708dec&status=ACCEPTED&limit=50`,
   );
 
   if (!response.ok) {
@@ -58,7 +59,6 @@ export default async function Mushrooms() {
   return (
     <main>
       <h1 className={styles.h1}>Sopper</h1>
-
       <div className={styles.mushroomsDisplay}>{mushroomsWithImages}</div>
     </main>
   );
