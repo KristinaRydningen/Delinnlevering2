@@ -1,23 +1,58 @@
+import SpesificMushroomCard from "@/components/spesificMushroomCard/spesificMushroomCard";
+
 type Props = {
   params: Promise<{ id: string }>;
 };
 
-export default async function mushroomSpesific({ params }: Props) {
+type MushroomName = {
+  vernacularName: string;
+  language: string;
+};
+
+export default async function MushroomSpecific({ params }: Props) {
   const { id } = await params;
 
-  const response = await fetch(`https://api.gbif.org/v1/species/${id}`);
+  let description = "";
 
-  if (!response.ok) {
-    throw new Error("Feil ved innhenting av data");
+  const response = await fetch(`https://api.gbif.org/v1/species/${id}`);
+  const mushroom = await response.json();
+
+  const nameResponse = await fetch(
+    `https://api.gbif.org/v1/species/${id}/vernacularNames`,
+  );
+  const nameData = await nameResponse.json();
+  const norwegianName = nameData.results.find(
+    (name: MushroomName) => name.language === "nob",
+  );
+  const sapmiName = nameData.results.find(
+    (name: MushroomName) => name.language === "sme",
+  );
+
+  const imgResponse = await fetch(
+    `https://api.gbif.org/v1/occurrence/search?scientificName=${mushroom.canonicalName}&mediaType=StillImage&limit=1`,
+  );
+  const imgData = await imgResponse.json();
+  const img = imgData.results?.[0]?.media?.[0]?.identifier;
+
+  if (norwegianName) {
+    const descriptionResponse = await fetch(
+      `https://snl.no/api/v1/search?query=${norwegianName.vernacularName}&utm_source=chatgpt.com`,
+    );
+
+    const descriptionData = await descriptionResponse.json();
+
+    description = descriptionData[0]?.first_sentences
+      ? descriptionData[0]?.first_sentences
+      : "";
   }
 
-  const spesificMushroom = await response.json();
-
-  console.log(spesificMushroom);
-
   return (
-    <>
-      <p>{spesificMushroom.canonicalName}</p>
-    </>
+    <SpesificMushroomCard
+      latinName={mushroom.canonicalName}
+      commonName={norwegianName ? norwegianName.vernacularName : ""}
+      img={img}
+      sapmiName={sapmiName ? sapmiName.vernacularName : ""}
+      description={description}
+    />
   );
 }
