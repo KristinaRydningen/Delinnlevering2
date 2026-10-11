@@ -13,7 +13,7 @@ type Mushroom = {
 
 export default async function Mushrooms() {
   const response = await fetch(
-    "https://api.gbif.org/v1/species/search?higherTaxonKey=168023315&rank=SPECIES&datasetKey=a6c6cead-b5ce-4a4e-8cf5-1542ba708dec&status=ACCEPTED&limit=20",
+    "https://api.gbif.org/v1/species/search?higherTaxonKey=168023315&rank=SPECIES&datasetKey=a6c6cead-b5ce-4a4e-8cf5-1542ba708dec&status=ACCEPTED&limit=50",
   );
 
   if (!response.ok) {
@@ -57,7 +57,7 @@ export default async function Mushrooms() {
 
   return (
     <main>
-      <h1>Sopper</h1>
+      <h1 className={styles.h1}>Sopper</h1>
 
       <div className={styles.mushroomsDisplay}>{mushroomsWithImages}</div>
     </main>
