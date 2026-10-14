@@ -1,0 +1,5 @@
+.warningContainer {
+  border: red solid 0.2rem;
+  padding: 0.5rem;
+  width: fit-content;
+}

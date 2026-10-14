@@ -55,7 +55,7 @@ export default async function MushroomSpecific({ params }: Props) {
       description={
         description
           ? description
-          : `Det finnes dessverre ingen beskrivelse for ${norwegianName.vernacularName}`
+          : `Det finnes dessverre ingen beskrivelse for ${norwegianName ? norwegianName.vernacularName : mushroom.canonicalName}`
       }
     />
   );
