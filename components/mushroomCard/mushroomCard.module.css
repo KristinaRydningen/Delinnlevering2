@@ -1,5 +1,22 @@
+.mushroomsDisplay {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border: solid black 1rem;
+}
+
+@media (max-width: 800px) {
+  .mushroomsDisplay {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.h1 {
+  text-align: center;
+}
+
 .mushroomCard {
   background-color: #cfffb3;
+  width: 15rem;
   border: 0.1rem solid #cfffb3;
   border-radius: 1rem;
   padding: 1rem;
@@ -22,5 +39,5 @@
 
 .sapmiFlag {
   width: 2rem;
-  margin-left: 0.5rem;
+  margin: 0.5rem;
 }

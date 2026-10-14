@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import MushroomCard from "@/components/mushroomCard/mushroomCard";
-import styles from "./mushroomsPage.module.css";
 import { GBIF_BASE_API } from "@/constants/constants-api";
+import Warning from "@/components/warning/Warning";
+import "../../components/muhsroomGrid/mushroomGrid.css";
 
 type Mushroom = {
   key: number;
@@ -57,9 +58,10 @@ export default async function Mushrooms() {
   );
 
   return (
-    <main>
-      <h1 className={styles.h1}>Sopper</h1>
-      <div className={styles.mushroomsDisplay}>{mushroomsWithImages}</div>
-    </main>
+    <>
+      <h1>Sopper</h1>
+      <Warning />
+      <div className="mushroomsDisplay">{mushroomsWithImages}</div>
+    </>
   );
 }

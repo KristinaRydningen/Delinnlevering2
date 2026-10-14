@@ -4,29 +4,34 @@
 
 body {
   background-color: darkolivegreen;
-  margin: 4rem 4rem;
   font-family: sans-serif;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .home-container {
   min-height: 100vh;
-  min-width: 1200px;
+  max-width: 1200px;
+  width: 100%;
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-items: center;
+  align-items: center;
+}
 
-  header,
-  footer {
-    padding: 1rem;
-  }
+header,
+footer {
+  padding: 1rem;
+}
 
-  main {
-    padding: 1rem;
-    flex: 1;
-  }
+main {
+  padding: 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .button {
@@ -35,4 +40,14 @@ body {
   border-radius: 0.5rem;
   padding: 0.5rem;
   font-weight: bold;
+}
+
+.soppoteketContainer {
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 600px) {
+  body {
+    margin: 1rem;
+  }
 }

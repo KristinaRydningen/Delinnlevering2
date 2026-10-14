@@ -16,7 +16,7 @@ export default function MushroomCard(props: Props) {
       <img className={styles.mushroomImages} src={props.img} alt="" />
       <h2>{props.commonName}</h2>
       <h3 className={styles.italicTxt}>{props.latinName}</h3>
-      <h3>
+      <h3 className={styles.italicTxt}>
         {props.sapmiName ? (
           <div className={styles.sapmiDisplay}>
             {props.sapmiName}

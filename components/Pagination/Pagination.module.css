@@ -1,0 +1,14 @@
+.paginationNav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-block: 1rem;
+
+  a {
+    text-decoration: none;
+    background-color: #cfffb3;
+    padding: 1rem;
+    border-radius: 100vh;
+    color: black;
+  }
+}

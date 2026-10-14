@@ -4,13 +4,15 @@ import SearchForm from "../SearchForm/SearchForm";
 
 export default function Header() {
   return (
-    <header className={styles.headerNav}>
-      <nav>
-        <Link href="/">Hjem</Link>
-        <Link href="/mushrooms">Sopper</Link>
-        <Link href="/about">Om soppoteket</Link>
-        <SearchForm />
-      </nav>
-    </header>
+    <>
+      <header className={styles.headerNav}>
+        <nav>
+          <Link href="/">Hjem</Link>
+          <Link href="/mushrooms">Sopper</Link>
+          <Link href="/about">Om soppoteket</Link>
+          <SearchForm />
+        </nav>
+      </header>
+    </>
   );
 }
