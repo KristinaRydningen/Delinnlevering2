@@ -10,5 +10,6 @@
     padding: 1rem;
     border-radius: 100vh;
     color: black;
+    cursor: pointer;
   }
 }

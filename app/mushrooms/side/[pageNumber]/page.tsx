@@ -36,6 +36,7 @@ export default async function PaginatedMushrooms({
   }
 
   const data = await response.json();
+  const totalPages = Math.ceil(data.count / mushroomsPerPage);
 
   const mushroomsWithImages = await Promise.all(
     data.results.map(async (item: Mushroom) => {
@@ -76,8 +77,17 @@ export default async function PaginatedMushrooms({
       <Warning />
       <div className="mushroomsDisplay">{mushroomsWithImages}</div>
       <Pagination>
-        <Link href={`${parseInt(pageNumber) - 1}`}>Forrige side</Link>
-        <Link href={`${parseInt(pageNumber) + 1}`}>Neste side</Link>
+        <div>
+          {parseInt(pageNumber) >= 2 && (
+            <Link href={`${parseInt(pageNumber) - 1}`}>Forrige side</Link>
+          )}
+        </div>
+
+        <div>
+          {parseInt(pageNumber) < totalPages && (
+            <Link href={`${parseInt(pageNumber) + 1}`}>Neste side</Link>
+          )}
+        </div>
       </Pagination>
     </>
   );
