@@ -27,7 +27,7 @@ export default function MushroomCard(props: Props) {
         )}
       </h3>
       <button className="button">
-        <Link href={`mushrooms/${props.id}`}>Les mer</Link>
+        <Link href={`/mushrooms/${props.id}`}>Les mer</Link>
       </button>
     </div>
   );
