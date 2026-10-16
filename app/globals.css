@@ -32,6 +32,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .button {
@@ -40,6 +41,12 @@ main {
   border-radius: 0.5rem;
   padding: 0.5rem;
   font-weight: bold;
+  text-decoration: none;
+  color: black;
+
+  &:visited {
+    color: black;
+  }
 }
 
 .soppoteketContainer {

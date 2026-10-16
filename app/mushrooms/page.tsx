@@ -29,10 +29,17 @@ export default async function Mushrooms() {
       const norwegianName = item.vernacularNames.find(
         (name) => name.language === "nob",
       );
+      const norwegianNameCapitalized =
+        (norwegianName?.vernacularName?.[0]?.toUpperCase() ?? "") +
+        (norwegianName?.vernacularName?.slice(1) ?? "");
 
       const sapmiName = item.vernacularNames.find(
         (name) => name.language === "sme",
       );
+
+      const sapmiNamCapitalized =
+        (sapmiName?.vernacularName?.[0]?.toUpperCase() ?? "") +
+        (sapmiName?.vernacularName?.slice(1) ?? "");
 
       const imgResponse = await fetch(
         `https://api.gbif.org/v1/occurrence/search?scientificName=${item.canonicalName}&mediaType=StillImage&limit=1`,
@@ -48,10 +55,12 @@ export default async function Mushrooms() {
           id={item.key}
           img={img ? img : ""}
           commonName={
-            norwegianName ? norwegianName.vernacularName : item.canonicalName
+            norwegianNameCapitalized
+              ? norwegianNameCapitalized
+              : item.canonicalName
           }
-          latinName={item.canonicalName}
-          sapmiName={sapmiName ? sapmiName.vernacularName : ""}
+          latinName={norwegianName ? item.canonicalName : ""}
+          sapmiName={sapmiNamCapitalized ? sapmiNamCapitalized : ""}
         />
       );
     }),

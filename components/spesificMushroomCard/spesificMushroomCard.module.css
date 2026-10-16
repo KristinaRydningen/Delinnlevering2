@@ -17,10 +17,19 @@
   border-radius: 1rem;
 }
 
+.sapmiDisplay {
+  display: flex;
+  align-items: center;
+}
+
+.sapmiFlag {
+  height: 2rem;
+  margin: 0.5rem;
+}
+
 .main {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  border: 3px solid red;
   width: 100%;
 }

@@ -45,19 +45,27 @@ export default async function SearchMushroomsPage({ searchParams }: Props) {
           const norwegianName = nameData.results.find(
             (name) => name.language === "nob",
           );
+          const norwegianNameCapitalized =
+            (norwegianName?.vernacularName?.[0]?.toUpperCase() ?? "") +
+            (norwegianName?.vernacularName?.slice(1) ?? "");
 
           const sapmiName = nameData.results.find(
             (name) => name.language === "sme",
           );
+          const sapmiNamCapitalized =
+            (sapmiName?.vernacularName?.[0]?.toUpperCase() ?? "") +
+            (sapmiName?.vernacularName?.slice(1) ?? "");
 
           console.log(norwegianName);
           return (
             <MushroomCard
               key={mushroom.key}
               id={mushroom.key}
-              commonName={norwegianName ? norwegianName.vernacularName : ""}
+              commonName={
+                norwegianNameCapitalized ? norwegianNameCapitalized : ""
+              }
               latinName={mushroom.scientificName}
-              sapmiName={sapmiName ? sapmiName.vernacularName : ""}
+              sapmiName={sapmiNamCapitalized ? sapmiNamCapitalized : ""}
               img={img}
             />
           );
