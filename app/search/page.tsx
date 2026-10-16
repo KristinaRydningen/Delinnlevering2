@@ -1,5 +1,6 @@
 import MushroomCard from "@/components/mushroomCard/mushroomCard";
 import "../../components/muhsroomGrid/mushroomGrid.css";
+import MushroomGrid from "@/components/muhsroomGrid/MushroomGrid";
 
 type Props = {
   searchParams: Promise<{ q?: string }>;
@@ -29,7 +30,7 @@ export default async function SearchMushroomsPage({ searchParams }: Props) {
   return (
     <>
       <h1 className="h1">Søk etter {q}</h1>
-      <div className="mushroomsDisplay">
+      <MushroomGrid>
         {searchedMushrooms.map(async (mushroom) => {
           const imgResponse = await fetch(
             `https://api.gbif.org/v1/occurrence/search?scientificName=${mushroom.canonicalName}&mediaType=StillImage&limit=1`,
@@ -70,7 +71,7 @@ export default async function SearchMushroomsPage({ searchParams }: Props) {
             />
           );
         })}
-      </div>
+      </MushroomGrid>
     </>
   );
 }
