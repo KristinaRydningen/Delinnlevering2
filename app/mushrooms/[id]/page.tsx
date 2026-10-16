@@ -24,9 +24,16 @@ export default async function MushroomSpecific({ params }: Props) {
   const norwegianName = nameData.results.find(
     (name: MushroomName) => name.language === "nob",
   );
+  const capitalizedNorwegianName =
+    (norwegianName?.vernacularName?.[0]?.toUpperCase() ?? "") +
+    (norwegianName?.vernacularName?.slice(1) ?? "");
+
   const sapmiName = nameData.results.find(
     (name: MushroomName) => name.language === "sme",
   );
+  const capitalizedSapmiName =
+    (norwegianName?.vernacularName?.[0]?.toUpperCase() ?? "") +
+    (sapmiName?.vernacularName?.slice(1) ?? "");
 
   const imgResponse = await fetch(
     `https://api.gbif.org/v1/occurrence/search?scientificName=${mushroom.canonicalName}&mediaType=StillImage&limit=1`,
@@ -36,27 +43,27 @@ export default async function MushroomSpecific({ params }: Props) {
 
   if (norwegianName) {
     const descriptionResponse = await fetch(
-      `https://snl.no/api/v1/search?query=${norwegianName.vernacularName}&utm_source=chatgpt.com`,
+      `https://snl.no/api/v1/search?query=${norwegianName.vernacularName}&utm_`,
     );
 
     const descriptionData = await descriptionResponse.json();
 
-    description = descriptionData[0]?.first_sentences
-      ? descriptionData[0]?.first_sentences
-      : "";
+    const correctArticle = descriptionData.find(
+      (article) => article.headword === norwegianName.vernacularName,
+    );
+
+    description = correctArticle
+      ? correctArticle?.first_sentences
+      : `Det finnes dessverre ingen beskrivelse for ${norwegianName ? norwegianName.vernacularName : mushroom.canonicalName}`;
   }
 
   return (
     <SpesificMushroomCard
       latinName={mushroom.canonicalName}
-      commonName={norwegianName ? norwegianName.vernacularName : ""}
+      commonName={capitalizedNorwegianName ? capitalizedNorwegianName : ""}
       img={img}
-      sapmiName={sapmiName ? sapmiName.vernacularName : ""}
-      description={
-        description
-          ? description
-          : `Det finnes dessverre ingen beskrivelse for ${norwegianName ? norwegianName.vernacularName : mushroom.canonicalName}`
-      }
+      sapmiName={capitalizedSapmiName ? capitalizedSapmiName : ""}
+      description={description}
     />
   );
 }

@@ -43,10 +43,16 @@ export default async function PaginatedMushrooms({
       const norwegianName = item.vernacularNames.find(
         (name) => name.language === "nob",
       );
+      const norwegianNameCapitalized =
+        (norwegianName?.vernacularName?.[0]?.toUpperCase() ?? "") +
+        (norwegianName?.vernacularName?.slice(1) ?? "");
 
       const sapmiName = item.vernacularNames.find(
         (name) => name.language === "sme",
       );
+      const sapmiNamCapitalized =
+        (sapmiName?.vernacularName?.[0]?.toUpperCase() ?? "") +
+        (sapmiName?.vernacularName?.slice(1) ?? "");
 
       const imgResponse = await fetch(
         `https://api.gbif.org/v1/occurrence/search?scientificName=${item.canonicalName}&mediaType=StillImage&limit=1`,
@@ -61,11 +67,9 @@ export default async function PaginatedMushrooms({
           key={item.key}
           id={item.key}
           img={img ? img : ""}
-          commonName={
-            norwegianName ? norwegianName.vernacularName : item.canonicalName
-          }
+          commonName={norwegianNameCapitalized ? norwegianNameCapitalized : ""}
           latinName={item.canonicalName}
-          sapmiName={sapmiName ? sapmiName.vernacularName : ""}
+          sapmiName={sapmiNamCapitalized ? sapmiNamCapitalized : ""}
         />
       );
     }),
