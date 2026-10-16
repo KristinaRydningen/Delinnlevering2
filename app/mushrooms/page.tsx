@@ -3,8 +3,9 @@ import MushroomCard from "@/components/mushroomCard/mushroomCard";
 import { GBIF_BASE_API } from "@/constants/constants-api";
 import Warning from "@/components/warning/Warning";
 import "../../components/muhsroomGrid/mushroomGrid.css";
+import MushroomGrid from "@/components/muhsroomGrid/MushroomGrid";
 
-type Mushroom = {
+export type Mushroom = {
   key: number;
   canonicalName: string;
   vernacularNames: {
@@ -70,7 +71,7 @@ export default async function Mushrooms() {
     <>
       <h1>Sopper</h1>
       <Warning />
-      <div className="mushroomsDisplay">{mushroomsWithImages}</div>
+      <MushroomGrid>{mushroomsWithImages}</MushroomGrid>
     </>
   );
 }

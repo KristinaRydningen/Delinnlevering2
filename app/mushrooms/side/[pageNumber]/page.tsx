@@ -4,6 +4,7 @@ import Warning from "@/components/warning/Warning";
 import "../../../../components/muhsroomGrid/mushroomGrid.css";
 import Pagination from "@/components/Pagination/Pagination";
 import Link from "next/link";
+import MushroomGrid from "@/components/muhsroomGrid/MushroomGrid";
 
 type Mushroom = {
   key: number;
@@ -79,20 +80,13 @@ export default async function PaginatedMushrooms({
     <>
       <h1>Sopper, side {pageNumber}</h1>
       <Warning />
-      <div className="mushroomsDisplay">{mushroomsWithImages}</div>
-      <Pagination>
-        <div>
-          {parseInt(pageNumber) >= 2 && (
-            <Link href={`${parseInt(pageNumber) - 1}`}>Forrige side</Link>
-          )}
-        </div>
-
-        <div>
-          {parseInt(pageNumber) < totalPages && (
-            <Link href={`${parseInt(pageNumber) + 1}`}>Neste side</Link>
-          )}
-        </div>
-      </Pagination>
+      <MushroomGrid>{mushroomsWithImages}</MushroomGrid>
+      <Pagination
+        pageNumber={parseInt(pageNumber)}
+        limit={limitNumber}
+        total={totalPages}
+        skip={mushroomsPerPage}
+      />
     </>
   );
 }
