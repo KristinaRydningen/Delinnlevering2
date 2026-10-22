@@ -1,6 +1,7 @@
 .mushroomsDisplay {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 @media (max-width: 600px) {

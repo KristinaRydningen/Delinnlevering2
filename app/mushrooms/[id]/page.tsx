@@ -1,4 +1,4 @@
-import SpesificMushroomCard from "@/components/spesificMushroomCard/spesificMushroomCard";
+import SpesificMushroomCard from "@/components/SpesificMushroomCard/spesificMushroomCard";
 
 type Props = {
   params: Promise<{ id: string }>;

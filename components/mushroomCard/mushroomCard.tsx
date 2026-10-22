@@ -13,23 +13,31 @@ type Props = {
 export default function MushroomCard(props: Props) {
   return (
     <div className={styles.mushroomCard}>
-      <img className={styles.mushroomImages} src={props.img} alt="" />
-      <h2>{props.commonName}</h2>
-      {props.latinName && (
-        <h3 className={styles.italicTxt}>{props.latinName}</h3>
-      )}
-      {props.sapmiName && (
-        <h3 className={styles.italicTxt}>
-          <span className={styles.sapmiDisplay}>
-            {props.sapmiName}
-            <img className={styles.sapmiFlag} src="/sapmi.png" alt="" />
-          </span>
-        </h3>
-      )}
+      <div className={styles.imgContainer}>
+        <img
+          className={styles.mushroomImages}
+          src={props.img ? props.img : "/noImage.png"}
+          alt=""
+        />
+      </div>
+      <div className={styles.textContainer}>
+        <h2>{props.commonName}</h2>
+        {props.latinName && (
+          <h3 className={styles.italicTxtLatin}>{props.latinName}</h3>
+        )}
+        {props.sapmiName && (
+          <h3 className={styles.italicTxtSapmi}>
+            <span className={styles.sapmiDisplay}>
+              {props.sapmiName}
+              <img className={styles.sapmiFlag} src="/sapmi.png" alt="" />
+            </span>
+          </h3>
+        )}
 
-      <Link className="button" href={`/mushrooms/${props.id}`}>
-        Les mer
-      </Link>
+        <Link className={styles.lesMerButton} href={`/mushrooms/${props.id}`}>
+          Les mer
+        </Link>
+      </div>
     </div>
   );
 }

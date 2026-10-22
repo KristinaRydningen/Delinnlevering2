@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import MushroomCard from "@/components/mushroomCard/mushroomCard";
 import { GBIF_BASE_API } from "@/constants/constants-api";
-import Warning from "@/components/warning/Warning";
+import Warning from "@/components/Warning/Warning";
 import "../../components/muhsroomGrid/mushroomGrid.css";
 import MushroomGrid from "@/components/muhsroomGrid/MushroomGrid";
 
