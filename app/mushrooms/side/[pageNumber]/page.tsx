@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation";
 import MushroomCard from "@/components/mushroomCard/mushroomCard";
-import Warning from "@/components/warning/Warning";
+import Warning from "@/components/Warning/Warning";
 import "../../../../components/muhsroomGrid/mushroomGrid.css";
 import Pagination from "@/components/Pagination/Pagination";
-import Link from "next/link";
 import MushroomGrid from "@/components/muhsroomGrid/MushroomGrid";
 
 type Mushroom = {

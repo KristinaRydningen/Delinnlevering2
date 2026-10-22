@@ -1,6 +1,5 @@
 .mushroomCard {
   background-color: #cfffb3;
-  border: 0.1rem solid #cfffb3;
   border-radius: 1rem;
   padding: 1rem;
   margin: 1rem;
@@ -14,7 +13,6 @@
 .img {
   width: 50vh;
   margin: 1rem;
-  border-radius: 1rem;
 }
 
 .sapmiDisplay {

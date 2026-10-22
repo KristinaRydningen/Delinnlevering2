@@ -1,4 +1,4 @@
-import Warning from "@/components/warning/Warning";
+import Warning from "@/components/Warning/Warning";
 
 export default function Home() {
   return (
