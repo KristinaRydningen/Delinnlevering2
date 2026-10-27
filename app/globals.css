@@ -2,6 +2,17 @@
   box-sizing: border-box;
 }
 
+h1,
+h2 {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 500;
+}
+
+:root {
+  --bg-color: #556b2f;
+  --detail-color: #cfffb3;
+}
+
 body {
   background-color: darkolivegreen;
   font-family: sans-serif;
@@ -19,6 +30,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 1rem;
+  margin-block-end: 3rem;
 }
 
 header,

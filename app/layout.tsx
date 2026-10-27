@@ -2,6 +2,16 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/footer";
+import { DM_Sans, Fraunces } from "next/font/google";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+});
 
 export const metadata: Metadata = {
   title: "Soppoteket",
@@ -10,10 +20,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="nb">
+      <body className={`{dmSans.className} ${fraunces.variable}`}>
         <div className="soppoteketContainer">
-          <img src="Soppoteket.png" alt="Soppoteket" />
+          <img src="/Soppoteket.png" alt="Soppoteket" />
         </div>
         <div className="home-container">
           <Header />
