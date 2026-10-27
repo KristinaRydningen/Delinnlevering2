@@ -2,5 +2,12 @@
   width: 100%;
   border-top: 2rem darkolivegreen solid;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  padding-inline: 2rem;
+
+  img {
+    width: 15rem;
+  }
 }

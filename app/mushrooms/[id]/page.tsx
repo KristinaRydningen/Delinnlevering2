@@ -32,8 +32,10 @@ export default async function MushroomSpecific({ params }: Props) {
     (name: MushroomName) => name.language === "sme",
   );
   const capitalizedSapmiName =
-    (norwegianName?.vernacularName?.[0]?.toUpperCase() ?? "") +
+    (sapmiName?.vernacularName?.[0]?.toUpperCase() ?? "") +
     (sapmiName?.vernacularName?.slice(1) ?? "");
+
+  console.log(capitalizedSapmiName);
 
   const imgResponse = await fetch(
     `https://api.gbif.org/v1/occurrence/search?scientificName=${mushroom.canonicalName}&mediaType=StillImage&limit=1`,
