@@ -10,13 +10,25 @@ export default function Pagination({ pageNumber, total }: PaginationProps) {
   return (
     <>
       <div className={styles.paginationNav}>
-        {pageNumber >= 2 && (
-          <Link href={`${pageNumber - 1}`}>Forrige side</Link>
-        )}
+        <div className={styles.prevPage}>
+          {pageNumber >= 2 && (
+            <Link
+              href={
+                pageNumber === 2
+                  ? "/mushrooms"
+                  : `/mushrooms/side/${pageNumber - 1}`
+              }
+            >
+              Forrige side
+            </Link>
+          )}
+        </div>
 
-        {pageNumber < total && (
-          <Link href={`${pageNumber + 1}`}>Neste side</Link>
-        )}
+        <div className={styles.nextPage}>
+          {pageNumber < total && (
+            <Link href={`/mushrooms/side/${pageNumber + 1}`}>Neste side</Link>
+          )}
+        </div>
       </div>
     </>
   );

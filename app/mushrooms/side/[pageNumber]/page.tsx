@@ -4,6 +4,7 @@ import Warning from "@/components/Warning/Warning";
 import "../../../../components/muhsroomGrid/mushroomGrid.css";
 import Pagination from "@/components/Pagination/Pagination";
 import MushroomGrid from "@/components/muhsroomGrid/MushroomGrid";
+import { MUSHROOMS_PER_PAGE, GBIF_BASE_API } from "@/constants/constants-api";
 
 type Mushroom = {
   key: number;
@@ -22,13 +23,16 @@ export default async function PaginatedMushrooms({
   params,
 }: PaginatedMushroomsProps) {
   const { pageNumber } = await params;
-  const limitNumber = 20;
-  const mushroomsPerPage = 20;
-  const baseUrlGBIF =
-    "https://api.gbif.org/v1/species/search?higherTaxonKey=168023315&rank=SPECIES&datasetKey=a6c6cead-b5ce-4a4e-8cf5-1542ba708dec&status=ACCEPTED";
+  const currentPage = Number(pageNumber);
+
+  if (!Number.isInteger(currentPage) || currentPage < 2) {
+    notFound();
+  }
+
+  const baseUrlPaginationGBIF = `${GBIF_BASE_API}/species/search?higherTaxonKey=168023315&rank=SPECIES&datasetKey=a6c6cead-b5ce-4a4e-8cf5-1542ba708dec&status=ACCEPTED`;
 
   const response = await fetch(
-    `${baseUrlGBIF}&limit=${limitNumber}&offset=${mushroomsPerPage * (parseInt(pageNumber) - 1)}`,
+    `${baseUrlPaginationGBIF}&limit=${MUSHROOMS_PER_PAGE}&offset=${MUSHROOMS_PER_PAGE * (currentPage - 1)}`,
   );
 
   if (!response.ok) {
@@ -36,7 +40,10 @@ export default async function PaginatedMushrooms({
   }
 
   const data = await response.json();
-  const totalPages = Math.ceil(data.count / mushroomsPerPage);
+  const totalPages = Math.ceil(data.count / MUSHROOMS_PER_PAGE);
+  if (currentPage > totalPages) {
+    notFound();
+  }
 
   const mushroomsWithImages = await Promise.all(
     data.results.map(async (item: Mushroom) => {
@@ -77,15 +84,10 @@ export default async function PaginatedMushrooms({
 
   return (
     <>
-      <h1>Sopper, side {pageNumber}</h1>
+      <h1>Sopper, side {currentPage}</h1>
       <Warning />
       <MushroomGrid>{mushroomsWithImages}</MushroomGrid>
-      <Pagination
-        pageNumber={parseInt(pageNumber)}
-        limit={limitNumber}
-        total={totalPages}
-        skip={mushroomsPerPage}
-      />
+      <Pagination pageNumber={currentPage} total={totalPages} />
     </>
   );
 }
