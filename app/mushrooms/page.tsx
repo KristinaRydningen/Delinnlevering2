@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import MushroomCard from "@/components/mushroomCard/mushroomCard";
-import { GBIF_BASE_API } from "@/constants/constants-api";
+import { GBIF_BASE_API, MUSHROOMS_PER_PAGE } from "@/constants/constants-api";
 import Warning from "@/components/Warning/Warning";
 import "../../components/muhsroomGrid/mushroomGrid.css";
 import MushroomGrid from "@/components/muhsroomGrid/MushroomGrid";
+import Pagination from "@/components/Pagination/Pagination";
 
 export type Mushroom = {
   key: number;
@@ -16,7 +17,7 @@ export type Mushroom = {
 
 export default async function Mushrooms() {
   const response = await fetch(
-    `${GBIF_BASE_API}/species/search?higherTaxonKey=168023315&rank=SPECIES&datasetKey=a6c6cead-b5ce-4a4e-8cf5-1542ba708dec&status=ACCEPTED&limit=50`,
+    `${GBIF_BASE_API}/species/search?higherTaxonKey=168023315&rank=SPECIES&datasetKey=a6c6cead-b5ce-4a4e-8cf5-1542ba708dec&status=ACCEPTED&limit=${MUSHROOMS_PER_PAGE}`,
   );
 
   if (!response.ok) {
@@ -24,6 +25,7 @@ export default async function Mushrooms() {
   }
 
   const data = await response.json();
+  const totalPages = Math.ceil(data.count / MUSHROOMS_PER_PAGE);
 
   const mushroomsWithImages = await Promise.all(
     data.results.map(async (item: Mushroom) => {
@@ -72,6 +74,7 @@ export default async function Mushrooms() {
       <h1>Sopper</h1>
       <Warning />
       <MushroomGrid>{mushroomsWithImages}</MushroomGrid>
+      <Pagination pageNumber={1} total={totalPages} />
     </>
   );
 }
