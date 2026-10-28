@@ -41,8 +41,9 @@ footer {
 
 main {
   padding: 1rem;
-  flex: 1;
+  margin-block: 1rem;
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -64,6 +65,11 @@ main {
 
 .soppoteketContainer {
   padding-bottom: 2rem;
+}
+
+.welcomeTxt {
+  max-width: 45rem;
+  margin-block: 1rem;
 }
 
 @media (max-width: 600px) {
