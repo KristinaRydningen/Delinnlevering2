@@ -6,24 +6,30 @@ type Props = {
   sapmiName: string;
   description: string;
   img: string;
+  alt: string;
 };
 
 export default function SpesificMushroomCard(props: Props) {
   return (
-    <div className={styles.main}>
+    <div className={styles.spesificContainer}>
       <img
         className={styles.img}
         src={props.img ? props.img : "/noImage.png"}
-        alt=""
+        alt={props.img ? props.alt : "Ingen tilgjengelige bilder"}
       />
       <div className={styles.mushroomCard}>
         <h1>{props.commonName}</h1>
         <h2 className={styles.italicTxt}>{props.latinName}</h2>
         {props.sapmiName && (
-          <span className={styles.sapmiDisplay}>
+          <div className={styles.sapmiDisplay}>
+            <img
+              className={styles.sapmiFlag}
+              src="/sapmi.png"
+              alt=""
+              aria-label="Nordsamisk navn:"
+            />
             <h3 className={styles.italicTxt}>{props.sapmiName} </h3>
-            <img className={styles.sapmiFlag} src="/sapmi.png" alt="" />
-          </span>
+          </div>
         )}
         <p>
           {props.description

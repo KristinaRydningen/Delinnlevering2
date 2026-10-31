@@ -40,6 +40,8 @@ footer {
 }
 
 main {
+  width: 100%;
+  min-width: 0;
   padding: 1rem;
   margin-block: 1rem;
   display: flex;
@@ -74,6 +76,29 @@ main {
 
 @media (max-width: 600px) {
   body {
-    margin: 1rem;
+    margin: 0.5rem;
   }
+
+  main {
+    padding: 0.5rem;
+  }
+}
+
+.HeaderLogo {
+  &:focus-visible {
+    outline: 3px solid var(--detail-color);
+    outline-offset: 3px;
+    border-radius: 0.2rem;
+  }
+}
+
+.soppoteketContainer {
+  padding-bottom: 2rem;
+  max-width: 100%;
+}
+
+.soppoteketContainer img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }

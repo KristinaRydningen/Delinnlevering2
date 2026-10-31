@@ -12,6 +12,12 @@
 .headerNav a {
   text-decoration: none;
   color: black;
+
+  &:focus-visible {
+    outline: 3px solid var(--bg-color);
+    outline-offset: 3px;
+    border-radius: 0.2rem;
+  }
 }
 
 @media (max-width: 600px) {

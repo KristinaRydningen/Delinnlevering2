@@ -9,6 +9,11 @@ type MushroomName = {
   language: string;
 };
 
+type SnlArticle = {
+  headword: string;
+  first_sentences: string;
+};
+
 export default async function MushroomSpecific({ params }: Props) {
   const { id } = await params;
 
@@ -51,11 +56,12 @@ export default async function MushroomSpecific({ params }: Props) {
     const descriptionData = await descriptionResponse.json();
 
     const correctArticle = descriptionData.find(
-      (article) => article.headword === norwegianName.vernacularName,
+      (article: SnlArticle) =>
+        article.headword === norwegianName.vernacularName,
     );
 
     description = correctArticle
-      ? correctArticle?.first_sentences
+      ? correctArticle.first_sentences
       : `Det finnes dessverre ingen beskrivelse for ${norwegianName ? norwegianName.vernacularName : mushroom.canonicalName}`;
   }
 
@@ -64,6 +70,7 @@ export default async function MushroomSpecific({ params }: Props) {
       latinName={mushroom.canonicalName}
       commonName={capitalizedNorwegianName ? capitalizedNorwegianName : ""}
       img={img}
+      alt={`Bilde av ${capitalizedNorwegianName ? capitalizedNorwegianName : mushroom.canonicalName}`}
       sapmiName={capitalizedSapmiName ? capitalizedSapmiName : ""}
       description={description}
     />

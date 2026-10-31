@@ -8,6 +8,7 @@ type Props = {
   latinName: string;
   sapmiName: string;
   img: string;
+  alt: string;
 };
 
 export default function MushroomCard(props: Props) {
@@ -17,7 +18,7 @@ export default function MushroomCard(props: Props) {
         <img
           className={styles.mushroomImages}
           src={props.img ? props.img : "/noImage.png"}
-          alt=""
+          alt={props.img ? props.alt : "Ingen tilgjengelige bilder"}
         />
       </div>
       <div className={styles.textContainer}>
@@ -27,10 +28,15 @@ export default function MushroomCard(props: Props) {
         )}
         {props.sapmiName && (
           <h3 className={styles.italicTxtSapmi}>
-            <span className={styles.sapmiDisplay}>
+            <div className={styles.sapmiDisplay}>
+              <img
+                className={styles.sapmiFlag}
+                src="/sapmi.png"
+                alt=""
+                aria-label="Nordsamisk navn:"
+              />
               {props.sapmiName}
-              <img className={styles.sapmiFlag} src="/sapmi.png" alt="" />
-            </span>
+            </div>
           </h3>
         )}
 
