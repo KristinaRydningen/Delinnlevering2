@@ -1,0 +1,82 @@
+.textContainer {
+  display: grid;
+  grid-row: 2 / span 4;
+  grid-template-rows: subgrid;
+
+  h2,
+  h3 {
+    margin: 0;
+  }
+
+  .italicTxtLatin {
+    font-style: italic;
+    font-weight: 400;
+    grid-row: 2;
+  }
+
+  .italicTxtSapmi {
+    font-style: italic;
+    font-weight: 400;
+    grid-row: 3;
+  }
+}
+
+.mushroomCard {
+  background-color: #cfffb3;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  border: 0.1rem solid #cfffb3;
+  border-radius: 1rem;
+  padding: 1rem;
+  grid-row: span 4;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  display: grid;
+  grid-row: span 5;
+  gap: 0.75rem;
+  grid-template-rows: subgrid;
+}
+
+.mushroomImages {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+}
+
+.imgContainer {
+  grid: 1;
+}
+
+.sapmiDisplay {
+  display: flex;
+  align-items: center;
+}
+
+.sapmiFlag {
+  width: 2rem;
+  margin: 0.5rem;
+}
+
+.lesMerButton {
+  margin-top: auto;
+  background-color: white;
+  border: 0.1rem solid darkolivegreen;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+
+  width: fit-content;
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  grid-row: 4;
+
+  &:visited {
+    color: black;
+  }
+}

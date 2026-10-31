@@ -1,0 +1,16 @@
+.mushroomsDisplay {
+  margin-block: 2rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 600px) {
+  .mushroomsDisplay {
+    grid-template-columns: 1fr;
+  }
+}
+
+.h1 {
+  text-align: center;
+}

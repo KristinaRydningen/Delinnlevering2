@@ -1,36 +1,16 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Soppoteket
 
-## Getting Started
+Soppoteket viser frem et stort antall sopper med latinske navn. Der det er tilgjengelig vises norsk navn, samisk navn og norsk beskrivelse. Man kan også søke etter sopper på soppoteket. Soppoteket er for nysgjerrige soppintresserte som vil utforske flere sopparter.
 
-First, run the development server:
+## Innstallasjon og oppstart
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Prosjektet krever Node.js og npm. Du kan klone repositoryet med `git clone https://github.com/KristinaRydningen/Delinnlevering2`. Gå inn i mappen og installer avhengighetene med `npm install` og start utviklingsserveren med `npm run dev`. Åpne http://localhost:3000 i nettleseren din.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## API og konfigurasjon
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Det trengs ingen konfigurasjon av API-ene. Det brukes to API, i hovedsak brukes GBIF (Global Biodiversity Information Facility). Navnene og bildene kommer fra GBIF, mens SNL (Store norske leksikon) sitt API brukes for de norske beskrivelsene som dukker opp når man trykker på "Les mer" knappen.
+API-ene krever ikke API-nøkler.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Kjente feil og begrensninger:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Det er dessverre ikke alle soppene som har bilder, og noen sopper har heller ikke norske eller samiske navn. **Bildene er opplastet av tilfeldige brukere, og skal absolutt ikke brukes til identifisering av spiselig sopp.**

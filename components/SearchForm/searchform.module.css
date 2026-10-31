@@ -1,0 +1,44 @@
+.form {
+  background-color: var(--detail-color);
+  display: flex;
+  flex-direction: row;
+  border: solid 0.1rem var(--detail-color);
+  border-radius: 1rem;
+
+  &:focus-within {
+    outline: 3px solid var(--bg-color);
+    outline-offset: 0;
+  }
+
+  input {
+    background-color: var(--detail-color);
+    border: none;
+    padding: 0.5rem;
+    font-size: larger;
+    cursor: text;
+    border-radius: 1rem;
+  }
+  input:focus-visible {
+    outline: none;
+  }
+
+  input::placeholder {
+    color: black;
+  }
+
+  button {
+    background-color: var(--detail-color);
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 1rem;
+    &:focus-visible {
+      outline: 3px solid var(--bg-color);
+      outline-offset: -3px;
+    }
+  }
+
+  img {
+    width: 1.3rem;
+  }
+}
