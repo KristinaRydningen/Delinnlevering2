@@ -77,6 +77,7 @@ export default async function PaginatedMushrooms({
           commonName={norwegianNameCapitalized ? norwegianNameCapitalized : ""}
           latinName={item.canonicalName}
           sapmiName={sapmiNamCapitalized ? sapmiNamCapitalized : ""}
+          alt={`Bilde av ${norwegianNameCapitalized ? norwegianNameCapitalized : item.canonicalName}`}
         />
       );
     }),

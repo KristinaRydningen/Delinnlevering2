@@ -62,6 +62,7 @@ export default async function Mushrooms() {
               ? norwegianNameCapitalized
               : item.canonicalName
           }
+          alt={`Bilde av ${norwegianNameCapitalized ? norwegianNameCapitalized : item.canonicalName}`}
           latinName={norwegianName ? item.canonicalName : ""}
           sapmiName={sapmiNamCapitalized ? sapmiNamCapitalized : ""}
         />

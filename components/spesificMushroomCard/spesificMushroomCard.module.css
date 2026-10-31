@@ -11,8 +11,10 @@
 }
 
 .img {
-  width: 50vh;
-  margin: 1rem;
+  width: 100%;
+  max-width: 25rem;
+  height: auto;
+  object-fit: contain;
 }
 
 .sapmiDisplay {
@@ -25,9 +27,30 @@
   margin: 0.5rem;
 }
 
-.main {
+.spesificContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-content: center;
   width: 100%;
+  gap: 2rem;
+}
+
+@media (max-width: 600px) {
+  .spesificContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+  .mushroomCard {
+    width: 100%;
+    margin: 1rem 0;
+  }
 }
