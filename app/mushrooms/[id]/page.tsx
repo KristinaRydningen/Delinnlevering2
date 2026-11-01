@@ -1,4 +1,5 @@
-import SpesificMushroomCard from "@/components/SpesificMushroomCard/spesificMushroomCard";
+import SpesificMushroomCard from "@/components/spesificMushroomCard/spesificMushroomCard";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -20,7 +21,16 @@ export default async function MushroomSpecific({ params }: Props) {
   let description = "";
 
   const response = await fetch(`https://api.gbif.org/v1/species/${id}`);
+
+  if (!response.ok) {
+    notFound();
+  }
+
   const mushroom = await response.json();
+
+  if (!mushroom?.canonicalName || mushroom.kingdomKey !== 5) {
+    notFound();
+  }
 
   const nameResponse = await fetch(
     `https://api.gbif.org/v1/species/${id}/vernacularNames`,
