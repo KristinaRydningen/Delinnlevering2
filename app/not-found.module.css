@@ -1,0 +1,25 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.5rem;
+  padding: 3rem 1rem;
+  min-height: 50vh;
+}
+
+.homeLink {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--bg-color);
+    outline-offset: 3px;
+    border-radius: 0.2rem;
+  }
+}
