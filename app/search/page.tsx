@@ -29,7 +29,7 @@ export default async function SearchMushroomsPage({ searchParams }: Props) {
   );
 
   if (!response.ok) {
-    throw new Error("Noe gikk galt");
+    throw new Error(`Noe gikk galt, GBIF svarte med status ${response.status}`);
   }
   const data = await response.json();
   const searchedMushrooms = data.results;
@@ -40,16 +40,28 @@ export default async function SearchMushroomsPage({ searchParams }: Props) {
 
   const searchedMushroomCards = await Promise.all(
     searchedMushrooms.map(async (mushroom: Mushroom) => {
-      const imgResponse = await fetch(
-        `https://api.gbif.org/v1/occurrence/search?scientificName=${mushroom.canonicalName}&mediaType=StillImage&limit=1`,
-      );
-      const imgData = await imgResponse.json();
-      const img = imgData.results?.[0]?.media?.[0]?.identifier;
+      let img = "";
+      try {
+        const imgResponse = await fetch(
+          `https://api.gbif.org/v1/occurrence/search?scientificName=${mushroom.canonicalName}&mediaType=StillImage&limit=1`,
+        );
+        const imgData = imgResponse.ok ? await imgResponse.json() : null;
+        img = imgData?.results?.[0]?.media?.[0]?.identifier ?? "";
+      } catch {
+        console.error(`Kunne ikke hente bilde for ${mushroom.canonicalName}`);
+      }
 
-      const nameResponse = await fetch(
-        `https://api.gbif.org/v1/species/${mushroom.key}/vernacularNames`,
-      );
-      const nameData = await nameResponse.json();
+      let nameData: { results: MushroomName[] } = { results: [] };
+      try {
+        const nameResponse = await fetch(
+          `https://api.gbif.org/v1/species/${mushroom.key}/vernacularNames`,
+        );
+        nameData = nameResponse.ok
+          ? await nameResponse.json()
+          : { results: [] };
+      } catch {
+        console.error(`Kunne ikke hente navn for ${mushroom.canonicalName}`);
+      }
 
       const norwegianName = nameData.results.find(
         (name: MushroomName) => name.language === "nob",
@@ -69,7 +81,7 @@ export default async function SearchMushroomsPage({ searchParams }: Props) {
         <MushroomCard
           key={mushroom.key}
           id={mushroom.key}
-          commonName={norwegianNameCapitalized}
+          commonName={norwegianNameCapitalized || mushroom.scientificName}
           latinName={mushroom.scientificName}
           sapmiName={sapmiNameCapitalized ? sapmiNameCapitalized : ""}
           img={img}

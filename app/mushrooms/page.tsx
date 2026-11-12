@@ -1,4 +1,3 @@
-import { notFound } from "next/navigation";
 import MushroomCard from "@/components/mushroomCard/mushroomCard";
 import { GBIF_BASE_API, MUSHROOMS_PER_PAGE } from "@/constants/constants-api";
 import Warning from "@/components/Warning/Warning";
@@ -21,7 +20,7 @@ export default async function Mushrooms() {
   );
 
   if (!response.ok) {
-    notFound();
+    throw new Error(`GBIF svarte med status ${response.status}`);
   }
 
   const data = await response.json();
@@ -44,26 +43,31 @@ export default async function Mushrooms() {
         (sapmiName?.vernacularName?.[0]?.toUpperCase() ?? "") +
         (sapmiName?.vernacularName?.slice(1) ?? "");
 
-      const imgResponse = await fetch(
-        `https://api.gbif.org/v1/occurrence/search?scientificName=${item.canonicalName}&mediaType=StillImage&limit=1`,
-      );
+      let img = "";
+      try {
+        const imgResponse = await fetch(
+          `https://api.gbif.org/v1/occurrence/search?scientificName=${item.canonicalName}&mediaType=StillImage&limit=1`,
+        );
 
-      const imgData = await imgResponse.json();
+        const imgData = imgResponse.ok ? await imgResponse.json() : null;
 
-      const img = imgData.results?.[0]?.media?.[0]?.identifier;
+        img = imgData?.results?.[0]?.media?.[0]?.identifier ?? "";
+      } catch {
+        console.error(`Kunne ikke hente bilde for ${item.canonicalName}`);
+      }
 
       return (
         <MushroomCard
           key={item.key}
           id={item.key}
-          img={img ? img : ""}
+          img={img}
           commonName={
             norwegianNameCapitalized
               ? norwegianNameCapitalized
               : item.canonicalName
           }
           alt={`Bilde av ${norwegianNameCapitalized ? norwegianNameCapitalized : item.canonicalName}`}
-          latinName={norwegianName ? item.canonicalName : ""}
+          latinName={item.canonicalName}
           sapmiName={sapmiNamCapitalized ? sapmiNamCapitalized : ""}
         />
       );

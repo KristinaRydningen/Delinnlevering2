@@ -31,19 +31,28 @@ export default async function PaginatedMushrooms({
 
   const baseUrlPaginationGBIF = `${GBIF_BASE_API}/species/search?higherTaxonKey=168023315&rank=SPECIES&datasetKey=a6c6cead-b5ce-4a4e-8cf5-1542ba708dec&status=ACCEPTED`;
 
+  const countResponse = await fetch(`${baseUrlPaginationGBIF}&limit=0`);
+
+  if (!countResponse.ok) {
+    throw new Error(`GBIF svarte med status ${countResponse.status}`);
+  }
+
+  const countData = await countResponse.json();
+  const totalPages = Math.ceil(countData.count / MUSHROOMS_PER_PAGE);
+
+  if (currentPage > totalPages) {
+    notFound();
+  }
+
   const response = await fetch(
     `${baseUrlPaginationGBIF}&limit=${MUSHROOMS_PER_PAGE}&offset=${MUSHROOMS_PER_PAGE * (currentPage - 1)}`,
   );
 
   if (!response.ok) {
-    notFound();
+    throw new Error(`GBIF svarte med status ${response.status}`);
   }
 
   const data = await response.json();
-  const totalPages = Math.ceil(data.count / MUSHROOMS_PER_PAGE);
-  if (currentPage > totalPages) {
-    notFound();
-  }
 
   const mushroomsWithImages = await Promise.all(
     data.results.map(async (item: Mushroom) => {
@@ -61,20 +70,30 @@ export default async function PaginatedMushrooms({
         (sapmiName?.vernacularName?.[0]?.toUpperCase() ?? "") +
         (sapmiName?.vernacularName?.slice(1) ?? "");
 
-      const imgResponse = await fetch(
-        `https://api.gbif.org/v1/occurrence/search?scientificName=${item.canonicalName}&mediaType=StillImage&limit=1`,
-      );
+      let img = "";
 
-      const imgData = await imgResponse.json();
+      try {
+        const imgResponse = await fetch(
+          `https://api.gbif.org/v1/occurrence/search?scientificName=${item.canonicalName}&mediaType=StillImage&limit=1`,
+        );
 
-      const img = imgData.results?.[0]?.media?.[0]?.identifier;
+        const imgData = imgResponse.ok ? await imgResponse.json() : null;
+
+        img = imgData?.results?.[0]?.media?.[0]?.identifier ?? "";
+      } catch {
+        console.error(`Kunne ikke hente bilde for ${item.canonicalName}`);
+      }
 
       return (
         <MushroomCard
           key={item.key}
           id={item.key}
-          img={img ? img : ""}
-          commonName={norwegianNameCapitalized ? norwegianNameCapitalized : ""}
+          img={img}
+          commonName={
+            norwegianNameCapitalized
+              ? norwegianNameCapitalized
+              : item.canonicalName
+          }
           latinName={item.canonicalName}
           sapmiName={sapmiNamCapitalized ? sapmiNamCapitalized : ""}
           alt={`Bilde av ${norwegianNameCapitalized ? norwegianNameCapitalized : item.canonicalName}`}

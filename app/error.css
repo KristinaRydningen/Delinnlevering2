@@ -1,0 +1,14 @@
+.errorButtons {
+  background-color: var(--detail-color);
+  border: 0.1rem solid darkolivegreen;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  margin-block-start: 1rem;
+
+  &:visited {
+    color: black;
+  }
+}
