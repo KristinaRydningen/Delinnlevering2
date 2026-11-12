@@ -28,7 +28,7 @@ export default async function MushroomSpecific({ params }: Props) {
 
   const mushroom = await response.json();
 
-  if (!mushroom?.canonicalName || mushroom.kingdomKey !== 5) {
+  if (!mushroom?.canonicalName || mushroom.kingdomKey !== "Fungi") {
     notFound();
   }
 
@@ -49,8 +49,6 @@ export default async function MushroomSpecific({ params }: Props) {
   const capitalizedSapmiName =
     (sapmiName?.vernacularName?.[0]?.toUpperCase() ?? "") +
     (sapmiName?.vernacularName?.slice(1) ?? "");
-
-  console.log(capitalizedSapmiName);
 
   const imgResponse = await fetch(
     `https://api.gbif.org/v1/occurrence/search?scientificName=${mushroom.canonicalName}&mediaType=StillImage&limit=1`,
